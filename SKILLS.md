@@ -1,6 +1,6 @@
 ## 🛠️ SKILLS.md: Frontend Development UI Component Library
 
-This document outlines the **required skills and competencies** for contributing to this React component library.
+This document outlines the essential skills and competencies required to contribute to this React component library. Built with TypeScript and Storybook, the project follows Atomic Design principles and emphasizes accessibility, performance, and code quality.
 
 > **Note:** For AI-specific implementation instructions, see [AGENTS.md](./AGENTS.md).
 
