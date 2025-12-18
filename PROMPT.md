@@ -48,6 +48,8 @@ Only after the developer provides all details and makes framework decisions:
 
 ---
 
+---
+
 ### Context for Component Generator Agent (CGA)
 
 **Target:** [NAME_FROM_INTAKE]
@@ -58,18 +60,22 @@ Only after the developer provides all details and makes framework decisions:
 
 **0. INFRASTRUCTURE SETUP (EXECUTE FIRST)**
 
-- **If Shadcn YES:** Check for `components.json`. If missing, run `npx shadcn-ui@latest init`. Install required base components via `npx shadcn-ui@latest add`.
-- **If Storybook INSTALL:** Execute `npx storybook@latest init`.
-- **If Testing INSTALL:** Execute `npm install -D vitest @testing-library/react @testing-library/jest-dom`.
+- **If Shadcn YES:** Check for `components.json`. If missing, run `npx shadcn@latest init`.
+- **Component Mapping:** Analyze [INJECTED_DESIGN_DATA_FROM_MCP]. If the design matches a Shadcn primitive (Badge, Button, Input, etc.), run `npx shadcn@latest add [primitive_name]`.
 
 **1. MANDATORY RULES (AGENTS.md & SKILLS.md)**
 
 - **File Structure:** Create the folder `src/components/[Category]/[Name]/`.
-- **The Bundle:** Generate all required files (up to 6) including `index.ts`, `.tsx`, `.styles.scss`, `.types.ts`, and conditionally `.test.tsx` and `.stories.tsx`.
+- **The Bundle:** Generate all required files (up to 6) including `index.ts`, `.tsx`, `.styles.scss`, `.types.ts`.
+- **Composition Rule:** If Shadcn is YES, do NOT build primitives from scratch. Import the relevant Shadcn component and wrap/extend it with your BEM SCSS and Tailwind classes.
 - **Styling:** Use BEM methodology and Design Tokens from `variables.css`.
-- **Hybrid Rule:** If Shadcn is YES, use Tailwind for primitives and BEM SCSS for custom overrides.
+- **Shadcn Composition:** \* **If Shadcn UI is YES:** Identify the closest Shadcn primitive (e.g., Badge, Button). Install it via CLI and use it as the base wrapper for your JSX.
+  - **If Shadcn UI is NO:** Build the component using standard HTML elements (div, button, span, etc.) based strictly on Figma data.
+- **Styling:** Use BEM methodology and Design Tokens from `variables.css`.
+- **Hybrid Styling:** If Shadcn is YES, use Tailwind for the base primitive and BEM SCSS for custom overrides.
+- **Hybrid Rule:** Use Tailwind for Shadcn primitives and BEM SCSS for custom overrides.
 
 **2. Design Context**
 [INJECTED_DESIGN_DATA_FROM_MCP]
 
-**CGA Final Action:** Execute necessary installs, then generate the full component bundle in a single output without code comments.
+**CGA Final Action:** 1. Execute necessary installs based on framework decisions. 2. If Shadcn is YES, wrap the primitive. If NO, build from scratch. 3. Generate the full component bundle in a single output without code comments.
